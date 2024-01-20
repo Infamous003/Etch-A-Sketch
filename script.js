@@ -39,5 +39,21 @@ function drawGrid() {
       `;
     gridBox.classList.add('box');
   });
+  checkMouseOnGrid();
   return grid;
+}
+
+function checkMouseOnGrid() {
+  let gridArray = document.querySelectorAll('.box');
+  console.log(gridArray);
+
+  gridArray.forEach((box) => {
+    box.addEventListener('mouseenter', () => {
+      box.style.backgroundColor = 'black';
+    });
+  });
+
+  // gridArray.forEach((box) => {
+  //   box.addEventListener('click', box.style.backgroundColor = 'black');
+  // });
 }
