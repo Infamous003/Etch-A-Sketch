@@ -3,7 +3,9 @@ let inputElement = document.querySelector('input');
 let gridArray = [];
 const buttonElement = document.querySelector('button');
 
-buttonElement.addEventListener('click', drawGrid());
+buttonElement.addEventListener('click', () => {
+  drawGrid();
+});
 inputElement.addEventListener('keydown', (event) => {
   if(event.key === 'Enter'){
     drawGrid();
@@ -18,7 +20,6 @@ function getGridSizeFromUser() {
 function setGridContainerStyles(size) {
   gridContainerElement.style.cssText = `
   display:grid;
-  border:2px solid black;
   width: 400px;
   height: 400px;
   grid-template-columns: repeat(${size}, 1fr);
