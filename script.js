@@ -16,7 +16,7 @@ inputElement.addEventListener('keydown', (event) => {
 
 function getGridSizeFromUser() {
   let size = (inputElement.value % 2 == 0)? inputElement.value : (+inputElement.value + +1);
-  console.log(size);
+  console.log('Input value: '+inputElement.value);
   return size;
 }
 
@@ -51,6 +51,7 @@ function drawGrid() {
   const grid = createGrid(getGridSizeFromUser()) || null;
   setGridContainerStyles(getGridSizeFromUser());
   
+  
   if(grid !== null){
     grid.forEach(gridBox => {
       gridContainerElement.appendChild(gridBox);
@@ -73,10 +74,27 @@ function checkMouseOnGrid() {
   });
 }
 
+// function isMouseLeftClickDown() {
+//   let gridArray = document.querySelectorAll('.box');
+//   gridArray.forEach((box) => {
+//     box.addEventListener('mousedown', () => {
+//       box.classList.remove('box');
+//     });
+//   })
+//   return false;
+// }
+
 function toggleButton() {
   if(buttonElement.innerText === 'Create Grid') {
     buttonElement.innerText = 'Delete Grid';
+    
   }else {
     buttonElement.innerText = 'Create Grid';
+    inputElement.value = '';
   }
+}
+
+
+function eraser() {
+
 }
