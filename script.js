@@ -1,8 +1,16 @@
 let gridContainerElement = document.querySelector('.grid-container');
+let inputElement = document.querySelector('input');
 let gridArray = [];
+const buttonElement = document.querySelector('button');
+
+buttonElement.addEventListener('click', drawGrid());
+inputElement.addEventListener('keydown', (event) => {
+  if(event.key === 'Enter'){
+    drawGrid();
+  } 
+});
 
 function getGridSizeFromUser() {
-  let inputElement = document.querySelector('input');
   let size = (inputElement.value % 2 == 0)? inputElement.value : (inputElement.value + 1);
   return size;
 }
@@ -26,9 +34,6 @@ function createGrid(rows) {
         gridArray.push(box);
       }
     }
-    // if(!gridContainerElement.style.cssText) {
-    //   setGridContainerStyles(rows);
-    // }
     return gridArray;
   }else {
     gridArray.splice(0, gridArray.length);
@@ -38,11 +43,10 @@ function createGrid(rows) {
 
 function drawGrid() {
   const grid = createGrid(getGridSizeFromUser()) || null;
-  console.log('This is a nodelist!' + grid);
   gridContainerElement.innerHTML = '';
   setGridContainerStyles(getGridSizeFromUser());
+  
   if(grid !== null){
-    console.log('This is a nodelist! BUt inside IF');
     grid.forEach(gridBox => {
       gridContainerElement.appendChild(gridBox);
       gridBox.style.cssText = `
@@ -51,11 +55,8 @@ function drawGrid() {
       gridBox.classList.add('box');
       
     });
-    if(!gridContainerElement.style.cssText) {
-      
-    }
     checkMouseOnGrid();
-    return grid;
+    
   }
 }
 
