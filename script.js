@@ -5,15 +5,18 @@ const buttonElement = document.querySelector('button');
 
 buttonElement.addEventListener('click', () => {
   drawGrid();
+  toggleButton();
 });
 inputElement.addEventListener('keydown', (event) => {
   if(event.key === 'Enter'){
     drawGrid();
+    toggleButton();
   } 
 });
 
 function getGridSizeFromUser() {
-  let size = (inputElement.value % 2 == 0)? inputElement.value : (inputElement.value + 1);
+  let size = (inputElement.value % 2 == 0)? inputElement.value : (+inputElement.value + +1);
+  console.log(size);
   return size;
 }
 
@@ -28,6 +31,7 @@ function setGridContainerStyles(size) {
 }
 
 function createGrid(rows) {
+  
   if(gridArray.length === 0) {
     for(let i = 0; i < rows; i++){
       for(let j = 0; j < rows; j++){
@@ -38,26 +42,25 @@ function createGrid(rows) {
     return gridArray;
   }else {
     gridArray.splice(0, gridArray.length);
+    gridContainerElement.innerHTML = '';
     return gridArray;
   }
 }
 
 function drawGrid() {
   const grid = createGrid(getGridSizeFromUser()) || null;
-  gridContainerElement.innerHTML = '';
   setGridContainerStyles(getGridSizeFromUser());
   
   if(grid !== null){
     grid.forEach(gridBox => {
       gridContainerElement.appendChild(gridBox);
       gridBox.style.cssText = `
-        border: 1px solid black;
+        border: 0.001rem solid rgba(0,0,0,0.2);
         `;
       gridBox.classList.add('box');
       
     });
     checkMouseOnGrid();
-    
   }
 }
 
@@ -68,4 +71,12 @@ function checkMouseOnGrid() {
       box.style.backgroundColor = 'black';
     });
   });
+}
+
+function toggleButton() {
+  if(buttonElement.innerText === 'Create Grid') {
+    buttonElement.innerText = 'Delete Grid';
+  }else {
+    buttonElement.innerText = 'Create Grid';
+  }
 }
