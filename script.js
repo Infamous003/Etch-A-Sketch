@@ -1,7 +1,20 @@
 let gridContainerElement = document.querySelector('.grid-container');
 let inputElement = document.querySelector('input');
 let gridArray = [];
-const buttonElement = document.querySelector('button');
+const buttonElement = document.querySelector('.create-grid');
+let eraserbtn = document.querySelector('.eraser-btn');
+
+eraserbtn.addEventListener('click', () => {
+  if(eraserbtn.style.backgroundColor !== 'rgb(40, 40, 40)'){
+    eraserbtn.style.backgroundColor = 'rgb(40, 40, 40)';
+    eraserbtn.style.fontSize = '1.5rem';
+    isEraserOn();
+  }else{
+    eraserbtn.style.backgroundColor = null;
+    eraserbtn.style.fontSize = null;
+    checkMouseOnGrid();
+  }
+});
 
 buttonElement.addEventListener('click', () => {
   drawGrid();
@@ -69,7 +82,7 @@ function checkMouseOnGrid() {
   let gridArray = document.querySelectorAll('.box');
   gridArray.forEach((box) => {
     box.addEventListener('mouseenter', () => {
-      box.style.backgroundColor = 'black';
+      box.style.backgroundColor = `black`;
     });
   });
 }
@@ -87,14 +100,21 @@ function checkMouseOnGrid() {
 function toggleButton() {
   if(buttonElement.innerText === 'Create Grid') {
     buttonElement.innerText = 'Delete Grid';
-    
+    eraserbtn.style.backgroundColor = null;
   }else {
     buttonElement.innerText = 'Create Grid';
     inputElement.value = '';
+    eraserbtn.style.backgroundColor = null;
+    eraserbtn.style.fontSize = null;
   }
 }
 
 
-function eraser() {
-
+function isEraserOn() {
+  let gridArray = document.querySelectorAll('.box');
+  gridArray.forEach((box) => {
+    box.addEventListener('mouseenter', () => {
+      box.style.backgroundColor = null;
+    });
+  });
 }
