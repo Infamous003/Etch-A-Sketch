@@ -3,6 +3,23 @@ let inputElement = document.querySelector('input');
 let gridArray = [];
 const buttonElement = document.querySelector('.create-grid');
 let eraserbtn = document.querySelector('.eraser-btn');
+let rainbowbtn = document.querySelector('.rainbow-btn');
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // Include max by adding 1 to the range
+}
+
+rainbowbtn.addEventListener('click', () => {
+  checkMouseOnGrid(true);
+  if(rainbowbtn.style.backgroundColor !== 'rgb(40, 40, 40)'){
+    rainbowbtn.style.backgroundColor = 'rgb(40, 40, 40)';
+  }else{
+    rainbowbtn.style.backgroundColor = null;
+    checkMouseOnGrid(false);
+  }
+});
 
 eraserbtn.addEventListener('click', () => {
   if(eraserbtn.style.backgroundColor !== 'rgb(40, 40, 40)'){
@@ -74,15 +91,26 @@ function drawGrid() {
       gridBox.classList.add('box');
       
     });
-    checkMouseOnGrid();
+    checkMouseOnGrid(false);
   }
 }
 
-function checkMouseOnGrid() {
+function checkMouseOnGrid(rainbowMode = false) {
   let gridArray = document.querySelectorAll('.box');
+  let red, blue, green;
   gridArray.forEach((box) => {
+    // console.log(red + ' ' + blue + ' ' + green);
     box.addEventListener('mouseenter', () => {
-      box.style.backgroundColor = `black`;
+      if(rainbowMode === true){
+        // 
+        red = getRandomIntInclusive(0, 255);
+        blue = getRandomIntInclusive(0, 255);
+        green = getRandomIntInclusive(0, 255);
+        box.style.backgroundColor = `rgb(${red}, ${blue}, ${green})`;
+        console.log(typeof box.style.backgroundColor);
+      }else {
+        box.style.backgroundColor = `black`;
+      }
     });
   });
 }
@@ -108,7 +136,6 @@ function toggleButton() {
     eraserbtn.style.fontSize = null;
   }
 }
-
 
 function isEraserOn() {
   let gridArray = document.querySelectorAll('.box');
